@@ -11,7 +11,7 @@ public class Countries {
 
     private static final List<String> countries = new ArrayList<>();
 
-    /*static {
+    static {
         countries.add("Afghanistan");
         countries.add("Albania");
         countries.add("Algeria");
@@ -195,10 +195,10 @@ public class Countries {
         countries.add("Vietnam");
         countries.add("Zambia");
         countries.add("Zimbabwe");
-    }*/
-    static {countries.add("Saint Kitts and Nevis");
+    }
+    /*static {countries.add("Saint Kitts and Nevis");
         countries.add("Saint Lucia");
-        countries.add("Saint Vincent and the Grenadines");}
+        countries.add("Saint Vincent and the Grenadines");}*/
     public static List<String> getAllCountries() {
 
         return countries;
