@@ -12,17 +12,15 @@ public class Hangman {
         List<String> countries = new ArrayList<>(country.getAllCountries());
         Random rand = new Random();
         String word = (countries.get(rand.nextInt(countries.size()))).toLowerCase();
-        char ch = '˘';
-        String word2 = word.replace(' ', ch);
         Scanner sc = new Scanner(System.in);
-        String guessedLetter = "";
+        int[] makeMove = new int[1];
         List<Character> playerGuess = new ArrayList<>();
         System.out.println(word);
 
         int wrongCount = 0;
         while (true) {
-            System.out.println("-------");
-            System.out.println("|     |");
+            System.out.println(" _______");
+            System.out.println(" |     |");
             if (wrongCount >= 1) {
                 System.out.println(" O");
             }
@@ -31,37 +29,43 @@ public class Hangman {
                 if (wrongCount >= 3) {
                     System.out.println("/");
                 } else {
-                    System.out.println("");
+                    System.out.println(" ");
                 }
             }
             if (wrongCount >= 4) {
-                System.out.println(" |");
+                System.out.println(" |   ");
             }
             if (wrongCount >= 5) {
                 System.out.print("/ ");
-            } if (wrongCount >= 6) {
+            }
+            if (wrongCount >= 6) {
                 System.out.println("\\");
+                System.out.println("You lost!");
+                break;
             } else {
                 System.out.println("");
             }
-            System.out.println(word);
-            System.out.println(playerGuess);
-            if (word.equals(playerGuess)) {
-                System.out.println("You won!");
-                break;
-            }
-            printWordDash(word, playerGuess);
-            if (playerGuessing(sc, word, playerGuess)) {
-                System.out.println("GoodBye");
-                break;
-            }
 
-            if (printWordDash(word, playerGuess)) {
-                System.out.println();
+            if (printWordDash(word, playerGuess)) {;
                 System.out.println("You win!");
                 break;
             }
-            else {
+
+            playerGuessing(sc, word, makeMove, playerGuess);
+            if (makeMove[0] == 3) {
+                wrongCount++;
+            }
+            if (makeMove[0] == 1) {
+                System.out.println("You won!");
+                break;
+            }
+            if (makeMove[0] == 0) {
+                System.out.println("GoodBye");
+                break;
+            }
+            if (makeMove[0] == 4) {
+                System.out.println("Your letter please!");
+            } else {
                 System.out.println("Enter your guess:");
             }
         }
@@ -69,35 +73,43 @@ public class Hangman {
     }
 
     private static boolean printWordDash(String word, List<Character> playerGuess) {
-        char ch = '˘';
-        String word2 = word.replace(' ', ch);
         int correctCount = 0;
         int chCount = 0;
-        for (int i = 0; i < word2.length(); i++) {
-            if (playerGuess.contains(word2.charAt(i))) {
-                System.out.print(word2.charAt(i));
+        for (int i = 0; i < word.length(); i++) {
+            if (playerGuess.contains(word.charAt(i))) {
+                //System.out.print(word.charAt(i));
                 correctCount++;
-            }
-            else if ((word2.charAt(i) != ch)){
+            } else if ((word.charAt(i) != ' ')) {
                 System.out.print("_");
-            }
-            else if ((word2.charAt(i) == ch)){
+            } else if ((word.charAt(i) == ' ')) {
                 System.out.print(" ");
                 chCount++;
             }
         }
         System.out.println();
-        return ((word.length()-chCount) == correctCount);
+        return ((word.length() - chCount) == correctCount);
     }
 
-    private static boolean playerGuessing(Scanner sc, String word, List<Character> playerGuess) {
-        boolean quit = false;
+    private static int[] playerGuessing(Scanner sc, String word, int[] makeMove, List<Character> playerGuess) {
+        makeMove[0] = 0;
         String guessedLetter = sc.nextLine();
-        if ((guessedLetter).equals("quit")){
-            quit = true;
+        if ((guessedLetter).equals("")) {
+            makeMove[0] = 4;
+        } else {
+
+            playerGuess.add((guessedLetter.toLowerCase()).charAt(0));
+
+            if ((guessedLetter).equals("quit")) {
+                makeMove[0] = 0;
+            } else if ((guessedLetter).equals(word)) {
+                makeMove[0] = 1;
+            } else if (word.contains(guessedLetter)) {
+                makeMove[0] = 2;
+            } else if (!word.contains(guessedLetter)) {
+                makeMove[0] = 3;
+            }
         }
-        playerGuess.add((guessedLetter.toLowerCase()).charAt(0));
-        return quit;
+        return makeMove;
     }
 
     private static void play(String word, int lives) {

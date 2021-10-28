@@ -2,6 +2,7 @@ package com.codecool.hangman;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Console;
 
 public class Title {
     public static void title() {
@@ -10,7 +11,7 @@ public class Title {
         BufferedImage bufferedImage = new BufferedImage(
                 width, heigth, BufferedImage.TYPE_INT_RGB);
         Graphics graphics = bufferedImage.getGraphics();
-        graphics.setFont(new Font("Noto Sans", Font.PLAIN, 12));
+        graphics.setFont(new Font("Noto Sans", Font.BOLD, 12));
 
         Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
@@ -28,7 +29,7 @@ public class Title {
             if (stringBuilder.toString().trim().isEmpty()) {
                 continue;
             }
-            System.out.println(stringBuilder);
+            System.err.println(stringBuilder);
         }
     }
 }
