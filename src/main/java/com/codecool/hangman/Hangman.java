@@ -30,7 +30,7 @@ public class Hangman {
         List<Character> playerGuess = new ArrayList<>();
         List<List<Character>> printPlayerGuess = new ArrayList<>();
         boolean diffy = true;
-        
+
         while (diffy) {
             System.out.println("Please choose difficulty level between 1 & 3");
             Scanner sc = new Scanner(System.in);
