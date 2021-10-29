@@ -30,21 +30,25 @@ public class Hangman {
         List<Character> playerGuess = new ArrayList<>();
         List<List<Character>> printPlayerGuess = new ArrayList<>();
         boolean diffy = true;
+        
         while (diffy) {
             System.out.println("Please choose difficulty level between 1 & 3");
             Scanner sc = new Scanner(System.in);
-            int difficulty = sc.nextInt();
+            String difficulty = sc.nextLine();
 
             switch (difficulty) {
-                case 1: word = (difficulty1.get(rand.nextInt(difficulty1.size()))).toLowerCase();
+                case "1":
+                    word = (difficulty1.get(rand.nextInt(difficulty1.size()))).toLowerCase();
                     diffy = false;
                     makeMove[0] = 5;
                     break;
-                case 2: word = (difficulty2.get(rand.nextInt(difficulty2.size()))).toLowerCase();
+                case "2":
+                    word = (difficulty2.get(rand.nextInt(difficulty2.size()))).toLowerCase();
                     diffy = false;
                     makeMove[0] = 5;
                     break;
-                case 3: word = (difficulty3.get(rand.nextInt(difficulty3.size()))).toLowerCase();
+                case "3":
+                    word = (difficulty3.get(rand.nextInt(difficulty3.size()))).toLowerCase();
                     diffy = false;
                     makeMove[0] = 5;
                     break;
@@ -85,33 +89,33 @@ public class Hangman {
                 System.out.println("");
             }
 
-            if (printWordDash(word, playerGuess)) {;
+            if (printWordDash(word, playerGuess)) {
+                ;
                 System.out.println("You win!");
                 break;
             }
 
-                playerGuessing(word, makeMove, playerGuess);
-                printGuess(printPlayerGuess, playerGuess);
-                if (makeMove[0] == 3) {
-                    wrongCount++;
-                }
-                if (makeMove[0] == 1) {
-                    System.out.println("You won!");
-                    break;
-                }
-                if (makeMove[0] == 0) {
-                    System.out.println("GoodBye");
-                    break;
-                }
-                if (makeMove[0] == 4) {
-                    System.out.println("Your letter please!");
-                }
-                if (makeMove[0] == 5) {
+            playerGuessing(word, makeMove, playerGuess);
+            printGuess(printPlayerGuess, playerGuess);
+            if (makeMove[0] == 3) {
+                wrongCount++;
+            }
+            if (makeMove[0] == 1) {
+                System.out.println("You won!");
+                break;
+            }
+            if (makeMove[0] == 0) {
+                System.out.println("GoodBye");
+                break;
+            }
+            if (makeMove[0] == 4) {
                 System.out.println("Your letter please!");
-                }
-                else {
-                    System.out.println("Enter your guess:");
-                }
+            }
+            if (makeMove[0] == 5) {
+                System.out.println("Your letter please!");
+            } else {
+                System.out.println("Enter your guess:");
+            }
 
         }
     }
@@ -134,7 +138,7 @@ public class Hangman {
         return ((word.length() - chCount) == correctCount);
     }
 
-    private static void printGuess (List<List<Character>> printPlayerGuess, List<Character> playerGuess) {
+    private static void printGuess(List<List<Character>> printPlayerGuess, List<Character> playerGuess) {
         if (!printPlayerGuess.isEmpty()) {
             printPlayerGuess.clear();
         }
@@ -144,10 +148,10 @@ public class Hangman {
         }
     }
 
-    private static String createPrintableString (List<Character> element) {
+    private static String createPrintableString(List<Character> element) {
         String printableString = " ";
         for (Character current : element) {
-             printableString += current + " ";
+            printableString += current + " ";
         }
         return printableString;
     }
